@@ -1,7 +1,7 @@
 import java.awt.AWTException;
 import java.io.IOException;
 
-
+//xx
 public class Main {
 	
 	static int Firefly_max = 20;//实例化萤火虫群落的数组的最大值
