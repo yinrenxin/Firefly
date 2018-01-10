@@ -1,35 +1,35 @@
 /*=========================================================================
-=============================ÀàÓ©»ğ³æµÄ´´½¨=================================
+=============================ç±»è¤ç«è™«çš„åˆ›å»º=================================
 =========================================================================*/
 
 import java.util.Random;
 
 public class Firefly {
 	
-	boolean flag;//ÊÇ·ñÒÑ±»ÎüÊÕ
-	int aim;//ÎüÒıÕß£¬-1µÄ³õÊ¼Öµ´ú±íÎ´±»ÎüÒı
-	double light;// ·¢¹âÇ¿¶È
-	double r;// ËÑË÷°ë¾¶
-	double x;// Î»ÖÃºá×ø±ê
-	double y;// Î»ÖÃ×İ×ø±ê
+	boolean flag;//æ˜¯å¦å·²è¢«å¸æ”¶
+	int aim;//å¸å¼•è€…ï¼Œ-1çš„åˆå§‹å€¼ä»£è¡¨æœªè¢«å¸å¼•
+	double light;// å‘å…‰å¼ºåº¦
+	double r;// æœç´¢åŠå¾„
+	double x;// ä½ç½®æ¨ªåæ ‡
+	double y;// ä½ç½®çºµåæ ‡
 	
-	static Random ran = new Random();//ÊµÀı»¯Ëæ»úÀà
-	static int move_max = 40;// Ëæ»úÒÆ¶¯×î´óÖµ
-	static int move = 50;//±»ÎüÒıÊ±µÄÒÆ¶¯Öµ
+	static Random ran = new Random();//å®ä¾‹åŒ–éšæœºç±»
+	static int move_max = 40;// éšæœºç§»åŠ¨æœ€å¤§å€¼
+	static int move = 50;//è¢«å¸å¼•æ—¶çš„ç§»åŠ¨å€¼
 	static int bound_x = 800;
-	static int bound_y = 600;//Ó©»ğ³æÎ»ÖÃ³õÊ¼»¯µÄ±ß½ç
-	static double Lmax = 0;////¹âÇ¿¼«´óÖµ
+	static int bound_y = 600;//è¤ç«è™«ä½ç½®åˆå§‹åŒ–çš„è¾¹ç•Œ
+	static double Lmax = 0;////å…‰å¼ºæå¤§å€¼
 	
 
 
 	static double distance(double a,double b){
 		return Math.sqrt((a-b)*(a-b));
-	}//¼ÆËãÁ½Ó©»ğ³æÈºÂäµÄ¾àÀë
+	}//è®¡ç®—ä¸¤è¤ç«è™«ç¾¤è½çš„è·ç¦»
 	
 	public Firefly() {
 		FireflyCreat();
 		this.check_a();
-	}// Ä¬ÈÏ¹¹½¨Æ÷
+	}// é»˜è®¤æ„å»ºå™¨
 
 	public Firefly(double light, double r, double x, double y){
 		aim = -1;
@@ -37,7 +37,7 @@ public class Firefly {
 		this.r = r;
 		this.x = x;
 		this.y = y;
-	}// º¬²Î¹¹½¨Æ÷£¬²âÊÔÓÃ
+	}// å«å‚æ„å»ºå™¨ï¼Œæµ‹è¯•ç”¨
 	
 	public void move_random() {
 		x += ran.nextInt(move_max*2)-move_max;
@@ -49,24 +49,24 @@ public class Firefly {
 		y += ran.nextDouble();
 		y = y>600?600:y;
 		y = y<0?0:y;
-	}// Ëæ»úÒÆ¶¯º¯Êı
+	}// éšæœºç§»åŠ¨å‡½æ•°
 
 	public static void move_attract(int i,Firefly a[]) {
-		if(a[i].flag//ÅĞ¶Ï¸ÃÈºÂäÊÇ·ñÒÑ±»ÎüÊÕ
-				&& a[a[i].aim].light > a[i].light//ÅĞ¶Ï¸ÃÈºÂäµÄ¹âÇ¿ÊÇ·ñÔÚÖĞÍ¾´óÓÚÁËÎüÒıÕß
+		if(a[i].flag//åˆ¤æ–­è¯¥ç¾¤è½æ˜¯å¦å·²è¢«å¸æ”¶
+				&& a[a[i].aim].light > a[i].light//åˆ¤æ–­è¯¥ç¾¤è½çš„å…‰å¼ºæ˜¯å¦åœ¨ä¸­é€”å¤§äºäº†å¸å¼•è€…
 				&& Math.sqrt((a[i].x-a[a[i].aim].x)*(a[i].x-a[a[i].aim].x)) <= move
-				&&Math.sqrt((a[i].y-a[a[i].aim].y)*(a[i].y-a[a[i].aim].y)) <= move//ÅĞ¶ÏÊÇ·ñ²¢ÈëÓ©»ğ³æÈºÂä
+				&&Math.sqrt((a[i].y-a[a[i].aim].y)*(a[i].y-a[a[i].aim].y)) <= move//åˆ¤æ–­æ˜¯å¦å¹¶å…¥è¤ç«è™«ç¾¤è½
 				){
-			a[i].flag = false;//½«ÈºÂäÉèÖÃÎªÒÑ±»ÎüÊÕ
+			a[i].flag = false;//å°†ç¾¤è½è®¾ç½®ä¸ºå·²è¢«å¸æ”¶
 			a[a[i].aim].light += a[i].light/3;
-			a[a[i].aim].r += a[i].light/6;//ÎüÊÕÕß·¢ÉúÊı¾İ±ä»¯
+			a[a[i].aim].r += a[i].light/6;//å¸æ”¶è€…å‘ç”Ÿæ•°æ®å˜åŒ–
 			return;
 		}
 		if(a[i].aim != -1 && a[i].light > a[a[i].aim].light){
 			a[i].aim = -1;
 			a[i].move_random();
 			return;
-		}//ÔÚÒÆ¶¯¹ı³åÖĞÈô±»ÎüÒıÕßµÄ¹âÇ¿·¢Éú±ä»¯³¬¹ıÁËÎüÒıÕßÔòÎüÒıÏûÊ§
+		}//åœ¨ç§»åŠ¨è¿‡å†²ä¸­è‹¥è¢«å¸å¼•è€…çš„å…‰å¼ºå‘ç”Ÿå˜åŒ–è¶…è¿‡äº†å¸å¼•è€…åˆ™å¸å¼•æ¶ˆå¤±
 		a[i].x = a[i].x < a[a[i].aim].x ? a[i].x+move : a[i].x-move;
 		a[i].x = a[i].x>800?750:a[i].x;
 		a[i].x = a[i].x<0?0:a[i].x;
@@ -74,25 +74,46 @@ public class Firefly {
 		a[i].y = a[i].y < a[a[i].aim].y ? a[i].y+move : a[i].y-move;
 		a[i].y = a[i].y>600?550:a[i].y;
 		a[i].y = a[i].y<0?0:a[i].y;
-	}// ÎüÒıÒÆ¶¯º¯Êı
+	}// å¸å¼•ç§»åŠ¨å‡½æ•°
 	
 	public static void move(int i,Firefly a[]){
 		if(a[i].aim == -1)
 			a[i].move_random();
 		else 
 			move_attract(i,a);
-	} //ÒÆ¶¯ÕûºÏ
+	} //ç§»åŠ¨æ•´åˆ
 	
 	public void check_a(){
 		System.out.println("check:");
 		System.out.println("light:"+this.light + " r:" +this.r+ " x:" + this.x + " y:" + this.y);
-	}//´òÓ¡Ó©»ğ³æµ±Ç°Î»ÖÃ
+	}//æ‰“å°è¤ç«è™«å½“å‰ä½ç½®
 	
 	public static void check_b(Firefly a[]){
 		for(int i = 0;i < a.length;i++){
 			System.out.println("check "+(i+1)+":");
 			System.out.println("flag:"+a[i].flag+" aim:"+(a[i].aim+1)+" x:"+a[i].x + " y:" + a[i].y);
-		}//²é¿´µ±Ç°ËùÓĞÓ©»ğ³æÈºÂäµÄÇé¿ö£¬²âÊÔÓÃ
+		}//æŸ¥çœ‹å½“å‰æ‰€æœ‰è¤ç«è™«ç¾¤è½çš„æƒ…å†µï¼Œæµ‹è¯•ç”¨
+	}
+	/**
+	 * ç”Ÿæˆæ•°æ®
+	 */
+	public static void check_c(Firefly a[]) {
+		for (int i = 0; i < a.length; i++) {
+			if (a[i].flag == true) {
+				System.out.print(a[i].x + ",");
+			}
+		}
+		for (int i = 0; i < a.length; i++) {
+			if (a[i].flag == true) {
+				System.out.print(a[i].y + ",");
+			}
+		}
+		for (int i = 0; i < a.length - 1; i++) {
+			if (a[i].flag == true) {
+				System.out.print(a[i].r + ",");
+			}
+		}
+		System.out.println(a[a.length - 1].r);
 	}
 	
 	void FireflyCreat(){
@@ -106,23 +127,23 @@ public class Firefly {
 		x += ran.nextDouble();
 		y = ran.nextInt(bound_y);
 		y += ran.nextDouble();
-	}//¶ÔÍ¨¹ıÄ¬ÈÏ¹¹½¨Æ÷´´½¨µÄ¶ÔÏóµÄÊı¾İ½øĞĞ³õÊ¼»¯
+	}//å¯¹é€šè¿‡é»˜è®¤æ„å»ºå™¨åˆ›å»ºçš„å¯¹è±¡çš„æ•°æ®è¿›è¡Œåˆå§‹åŒ–
 	
 	static void FireflyCreat(Firefly a[]){
 		for(int i = 0;i < a.length;i++){
 			a[i] = new Firefly();
 		}
-	}//¶ÔÏó×é½øĞĞ³õÊ¼»¯
+	}//å¯¹è±¡ç»„è¿›è¡Œåˆå§‹åŒ–
 	
 	static void FireflyTouch(Firefly a[]){
 		for(int i = 0;i < a.length;i++){
 			if(a[i].flag)
 			for(int j = 0;j < a.length;j++){
-				if(j == i)continue;//±ÜÃâÓë×ÔÉí½øĞĞÅĞ¶Ï
+				if(j == i)continue;//é¿å…ä¸è‡ªèº«è¿›è¡Œåˆ¤æ–­
 				if(a[j].flag && distance(a[i].x-a[j].x,a[i].y-a[j].y) <= a[i].r)
 					if(a[j].aim == -1 || a[a[j].aim].light < a[i].light)a[j].aim = i;
 			}
 		}
-	}//¸öÌåÎüÒıÅĞ¶¨
+	}//ä¸ªä½“å¸å¼•åˆ¤å®š
 	
 }
